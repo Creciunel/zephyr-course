@@ -20,12 +20,32 @@ west update
 
 export ZEPHYR_BASE=~/zephyrproject/zephyr
 
-west build --board doit_esp32_devkit_v1/esp32/procpu app -p
+west build --board esp32_devkitc_wroom/esp32/procpu app -p
 
 west flash
 ```
 
 ---
+
+## For WSL
+
+
+run the folowing comands on Powershell:
+```PowerShell
+usbipd list # to identify the device
+
+usbipd bind --busid 1-1 # to bind the device
+
+usbipd attach --wsl --busid 1-1 # to attach the device to WSL
+
+```
+on WLS run to check the device:
+
+```bash
+ls -la /dev/ttyUSB0
+```
+
+
 ## For Virtual Machine
 
 Alow esp32 device
@@ -39,6 +59,9 @@ sudo chmod 666 /dev/ttyUSB0
 ## Results
 
 ![Results](first_flash.png)
+
+blinky sample
+![Results](blink.gif)
 
 ---
 
