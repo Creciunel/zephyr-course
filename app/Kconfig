@@ -1,0 +1,60 @@
+config BLINK_SLEEP_TIME_MS
+    int "Bulb sleep time (ms)"
+    default 1000
+    range 100 5000
+    help
+      Time in milliseconds to sleep between toggling the bulb on and off.
+        
+
+menuconfig LED_SUBSYSTEM
+	bool "LED Subsystem"
+	default y
+	help
+	  Enable the LED management subsystem.
+
+if LED_SUBSYSTEM
+
+choice
+	prompt "LED blink sleep time"
+	default LED_SLEEP_MEDIUM
+
+config LED_SLEEP_SLOW
+	bool "Slow"
+config LED_SLEEP_MEDIUM
+	bool "Medium"
+config LED_SLEEP_FAST
+	bool "Fast"
+endchoice
+
+config ADVANCED_LED_SETTINGS
+	bool "Advanced LED settings"
+	default n
+
+if ADVANCED_LED_SETTINGS
+
+config LED_BRIGHTNESS
+	int "LED brightness (0-100)"
+	default 100
+	range 0 100
+
+config LED_FADE_DURATION
+	int "LED fade duration (ms)"
+	default 500
+
+menu "Expert settings"
+
+config ENABLE_LED_DEBUGGING
+	bool "Enable LED debugging"
+	default n
+
+config CUSTOM_BLINK_PATTERN
+	bool "Custom blink pattern"
+	default n
+
+endmenu 
+
+endif 
+
+endif 
+
+source "Kconfig.zephyr"

@@ -56,12 +56,23 @@ sudo chmod 666 /dev/ttyUSB0
 ```
 
 ---
+
+## Kconfig
+
+Menuconfig tool
+
+```bash
+west build -t menuconfig
+```
+![Results](img/kconfig.png)
+
+---
 ## Results
 
-![Results](first_flash.png)
+![Results](img/first_flash.png)
 
 blinky sample
-![Results](blink.gif)
+![Results](img/blink.gif)
 
 ---
 
