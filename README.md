@@ -4,6 +4,8 @@ Welcome to the Zephyr RTOS training! This repository includes a ready-to-use
 development environment based on Zephyr 4.3.0, which you can set up in one of
 three ways:
 
+Wiki page with tasks: [Zephyr Training Tasks](https://iomico.atlassian.net/wiki/external/OTFlYTBiYmVjYjU5NGY2M2IyOWJhNGY4ZTQxZWM5ODg)
+
 ## Virtual Environment
 
 ```bash
@@ -24,6 +26,14 @@ west build --board esp32_devkitc_wroom/esp32/procpu app -p
 
 west flash
 ```
+
+or for automaticali build and menuconfig:
+
+```bash
+west build -t menuconfig
+```
+
+it will select the board from BOARD variable, so make sure to set it before
 
 ---
 
@@ -75,6 +85,11 @@ blinky sample
 ![Results](img/blink.gif)
 
 ---
+
+## DTS
+
+
+
 
 ## Manual Zephyr Setup
 

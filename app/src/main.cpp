@@ -1,19 +1,22 @@
-#include <zephyr/drivers/gpio.h>
 #include <zephyr/kernel.h>
-#include <zephyr/logging/log.h>
+#include <zephyr/drivers/gpio.h>
 
-
-LOG_MODULE_REGISTER(main, LOG_LEVEL_INF);
+// get the GPIO specification for the LED from the device tree
+static const struct gpio_dt_spec heart_led = GPIO_DT_SPEC_GET(DT_ALIAS(app_led), gpios);
 
 int main(void)
 {
-    bool led_state = true;
+    if (!gpio_is_ready_dt(&heart_led)) {
+        return -1;
+    }
+
+    gpio_pin_configure_dt(&heart_led, GPIO_OUTPUT_ACTIVE);
 
     while (1) {
-
-        led_state = !led_state;
-        LOG_INF("LED state: %s", led_state ? "ON" : "OFF");
-        k_msleep(CONFIG_BLINK_SLEEP_TIME_MS);
+        gpio_pin_toggle_dt(&heart_led);
+        
+        // Use the configured heartbeat period from Kconfig
+        k_msleep(CONFIG_APP_HEARTBEAT_PERIOD_MS);
     }
     return 0;
 }
