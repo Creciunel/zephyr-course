@@ -9,7 +9,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: zephyrprojectrtos/zephyr-build:latest
+    container: 
+        image: zephyrprojectrtos/zephyr-build:latest
+        options: --user root
 
     steps:
       - name: Checkout Source Code
