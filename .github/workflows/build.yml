@@ -1,38 +1,40 @@
 name: Build Zephyr Application
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+on: [push, pull_request]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: 
-        image: zephyrprojectrtos/zephyr-build:latest
-        options: --user root
-
     steps:
+      - name: Free Disk Space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
+          sudo docker image prune -a -f
+
       - name: Checkout Source Code
         uses: actions/checkout@v4
         with:
           path: app-repo
 
-      - name: Initialize West
-        run: |
-          west init -l app-repo
-          west update
-          west zephyr-export
-
-      - name: Build Application
-        run: |
-          west build -b esp32_devkitc/esp32/procpu app-repo/app -p always
+      - name: Build in Docker Container
+        uses: addnab/docker-run-action@v3
+        with:
+          image: zephyrprojectrtos/zephyr-build:latest
+          options: -v ${{ github.workspace }}:/work -w /work --user root
+          run: |
+            # Setări Git pentru safe directory
+            git config --global --add safe.directory /work/app-repo
+            
+            # Inițializare West
+            west init -l app-repo
+            west update
+            west zephyr-export
+            
+            # Build propriu-zis
+            west build -b esp32_devkitc/esp32/procpu app-repo/app -p always
 
       - name: Archive Build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: esp32-heartbeat-binary
-          path: |
-            build/zephyr/zephyr.bin
-            build/zephyr/zephyr.elf
+          path: build/zephyr/zephyr.bin
