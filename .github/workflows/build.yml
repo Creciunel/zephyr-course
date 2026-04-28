@@ -1,0 +1,36 @@
+name: Build Zephyr Application
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: zephyrprojectrtos/zephyr-build:latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+        with:
+          path: app-repo
+
+      - name: Initialize West
+        run: |
+          west init -l app-repo
+          west update
+          west zephyr-export
+
+      - name: Build Application
+        run: |
+          west build -b esp32_devkitc/esp32/procpu app-repo/app -p always
+
+      - name: Archive Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: esp32-heartbeat-binary
+          path: |
+            build/zephyr/zephyr.bin
+            build/zephyr/zephyr.elf

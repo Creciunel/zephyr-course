@@ -1,3 +1,8 @@
 {
-    "cmake.sourceDirectory": "/home/crc/zephyr-course/app"
+    "cmake.sourceDirectory": "/home/crc/zephyr-course/app",
+    "devicetree.zephyr": {
+        "$mid": 1,
+        "path": "/home/crc/deps/zephyr",
+        "scheme": "file"
+    }
 }

@@ -22,7 +22,7 @@ west update
 
 export ZEPHYR_BASE=~/zephyrproject/zephyr
 
-west build --board esp32_devkitc_wroom/esp32/procpu app -p
+west build --board esp32_devkitc/esp32/procpu app -p
 
 west flash
 ```
