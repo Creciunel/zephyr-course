@@ -1,64 +1,61 @@
 # Zephyr Training Environment
 
-Welcome to the Zephyr RTOS training! This repository includes a ready-to-use
-development environment based on Zephyr 4.3.0, which you can set up in one of
-three ways:
+Welcome to the Zephyr RTOS training! This repository provides a ready-to-use development environment based on Zephyr 4.3.0. You can set up the environment using one of the following methods.
 
-Wiki page with tasks: [Zephyr Training Tasks](https://iomico.atlassian.net/wiki/external/OTFlYTBiYmVjYjU5NGY2M2IyOWJhNGY4ZTQxZWM5ODg)
+**Additional Resources:** [Zephyr Training Tasks](https://iomico.atlassian.net/wiki/external/OTFlYTBiYmVjYjU5NGY2M2IyOWJhNGY4ZTQxZWM5ODg)
 
 ## Virtual Environment
+
+First, activate the virtual environment:
 
 ```bash
 source ~/zephyrproject/.venv/bin/activate
 ```
 
+Initialize and update the workspace:
+
 ```bash
 west init -l
-
 west update
 ```
 
+Build and flash the application:
+
 ```bash
-
 export ZEPHYR_BASE=~/zephyrproject/zephyr
-
 west build --board esp32_devkitc/esp32/procpu app -p
-
 west flash
 ```
 
-or for automaticali build and menuconfig:
+To configure the build with menuconfig:
 
 ```bash
 west build -t menuconfig
 ```
 
-it will select the board from BOARD variable, so make sure to set it before
+> **Note:** The board will be automatically selected from the `BOARD` environment variable. Make sure to set it before building.
 
 ---
 
-## For WSL
+## Windows Subsystem for Linux (WSL)
 
+Run the following commands in PowerShell to set up USB device forwarding:
 
-run the folowing comands on Powershell:
-```PowerShell
-usbipd list # to identify the device
-
-usbipd bind --busid 1-1 # to bind the device
-
-usbipd attach --wsl --busid 1-1 # to attach the device to WSL
-
+```powershell
+usbipd list           # Identify the device
+usbipd bind --busid 1-1     # Bind the device
+usbipd attach --wsl --busid 1-1   # Attach the device to WSL
 ```
-on WLS run to check the device:
+
+On WSL, verify the device is available:
 
 ```bash
 ls -la /dev/ttyUSB0
 ```
 
+## Virtual Machine
 
-## For Virtual Machine
-
-Alow esp32 device
+To allow the ESP32 device access, run:
 
 ```bash
 sudo fuser -k /dev/ttyUSB0
@@ -67,34 +64,34 @@ sudo chmod 666 /dev/ttyUSB0
 
 ---
 
-## Kconfig
+## Kconfig (Menuconfig)
 
-Menuconfig tool
+To access the Kconfig menuconfig tool:
 
 ```bash
 west build -t menuconfig
 ```
-![Results](img/kconfig.png)
+
+![Kconfig Output](img/kconfig.png)
 
 ---
+
 ## Results
 
-![Results](img/first_flash.png)
+Initial flash output:
 
-blinky sample
-![Results](img/blink.gif)
+![First Flash](img/first_flash.png)
+
+Blinky sample running:
+
+![Blink Sample](img/blink.gif)
 
 ---
-
-## DTS
-
-
-
 
 ## Manual Zephyr Setup
 
-Follow the following guide:
-- [Getting Started Guide](https://docs.zephyrproject.org/latest/develop/getting_started/index.html#).
+For a complete manual setup, follow the official [Getting Started Guide](https://docs.zephyrproject.org/latest/develop/getting_started/index.html).
 
-Make sure to select appropriate OS and to perform all steps till
-[Build the Blinky Sample](https://docs.zephyrproject.org/latest/develop/getting_started/index.html#build-the-blinky-sample).
+Ensure you:
+- Select the appropriate operating system for your platform
+- Complete all setup steps through the [Build the Blinky Sample](https://docs.zephyrproject.org/latest/develop/getting_started/index.html#build-the-blinky-sample) section

@@ -30,7 +30,9 @@ jobs:
               west init -l app-repo &&
               west update &&
               west zephyr-export &&
-              west build -b esp32_devkitc_wroom/esp32/procpu app-repo/app -p always
+              west build -b esp32_devkitc_wroom/esp32/procpu app-repo/app -p always -- \
+              -DZEPHYR_SDK_INSTALL_DIR=/opt/toolchains/zephyr-sdk-1.0.1 \
+              -DCHECK_ZEPHYR_SDK_VERSION=OFF
             "
 
       - name: Archive Build Artifacts
