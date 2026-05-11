@@ -23,7 +23,7 @@ jobs:
               west update
               west zephyr-export
 
-              west build -b esp32_devkitc/esp32/procpu app --pristine 
+              west build -b esp32_devkitc_wroom/esp32/procpu app --pristine 
             '
 
       - name: Upload artifacts
