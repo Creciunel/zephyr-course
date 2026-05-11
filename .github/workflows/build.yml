@@ -23,5 +23,13 @@ jobs:
               west update
               west zephyr-export
 
-              west build -b esp32_devkitc_wroom . --pristine 
+              west build -b esp32_devkitc/esp32/procpu app --pristine 
             '
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: zephyr-esp32
+          path: |
+            build/zephyr/zephyr.bin
+            build/zephyr/zephyr.elf
