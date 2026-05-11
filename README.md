@@ -93,5 +93,97 @@ Blinky sample running:
 For a complete manual setup, follow the official [Getting Started Guide](https://docs.zephyrproject.org/latest/develop/getting_started/index.html).
 
 Ensure you:
+
 - Select the appropriate operating system for your platform
 - Complete all setup steps through the [Build the Blinky Sample](https://docs.zephyrproject.org/latest/develop/getting_started/index.html#build-the-blinky-sample) section
+
+## Homework & Resources
+
+1. What is Zephyr/Preparing dev environment?
+
+Trainees shall:
+
+- set development environment
+- Build a Hello World example
+- flash the example
+
+[Getting Started Guide — Zephyr Project Documentation](https://docs.zephyrproject.org/latest/develop/getting_started/)
+
+[Zephyr SDK — Zephyr Project Documentation](https://docs.zephyrproject.org/latest/develop/toolchains/zephyr_sdk.html)
+
+2. West, west topologies, Hello World
+
+- Fork and set up the provided workspace — https://github.com/iomico-public/zephyr-course
+- Build and run an LED blink application (if there's an LED on your board)
+    - Flash to your hardware board
+    - Verify the LED toggles every second
+    - Push tag: l2-task1
+
+[West (Zephyr’s meta-tool) — Zephyr Project Documentation](https://docs.zephyrproject.org/latest/develop/west/)
+
+[West Manifests — Zephyr Project Documentation](https://docs.zephyrproject.org/latest/develop/west/)
+
+[Application Development — Zephyr Project Documentation](https://docs.zephyrproject.org/latest/develop/application/index.html)
+
+[Zephyr SDK — Zephyr Project Documentation](https://docs.zephyrproject.org/latest/develop/toolchains/zephyr_sdk.html)
+
+3. App Configuration: Kconfig
+
+- Reproduce this menu structure in your `Kconfig`
+- ```shell
+  [*] LED Subsystem  --->
+     LED blink sleep time (1s (medium))  --->
+     [ ] Advanced LED settings  --->
+          (100) LED brightness (0-100)
+          (500) LED fade duration (ms)
+          Expert settings  --->
+               [ ] Enable LED debugging
+               [ ] Custom blink pattern
+  ```
+    - **menuconfig** for LED Subsystem (top-level toggle)
+    - **choice** for blink sleep time (250ms, 500ms, 1s, 2s) with hidden int symbol
+    - **menuconfig** for Advanced LED settings
+    - **menu** with **visible if** for Expert settings
+    - **range** for brightness (0-100) and fade (0-5000)
+- Push tag l3-task1
+
+[Kconfig Tips](https://docs.zephyrproject.org/latest/build/kconfig/tips.html#select-pitfalls)
+
+4. App Configuration: Devicetree
+
+Add a configurable heartbeat LED to the blinky app from the demo.
+
+- Create `app.overlay` — add alias `app-led` pointing to your board's `led0`
+- Add `Kconfig` file with;
+- `int APP_HEARTBEAT_PERIOD_MS` (default `500`, range `100`–`2000`)
+- In C: use `DT_ALIAS(app_led)` for the GPIO and `CONFIG_APP_HEARTBEAT_PERIOD_MS` for the sleep duration
+- Verify: open `menuconfig`, change the period, rebuild — LED blink speed must change
+- Push tag: `l4-task1`
+
+[Devicetree — Zephyr Project Documentation](https://docs.zephyrproject.org/latest/build/dts/)
+
+[Devicetree HOWTOs — Zephyr Project Documentation](https://docs.zephyrproject.org/latest/build/dts/howtos.html)
+
+[Configuration System (Kconfig) — Zephyr Project Documentation](https://docs.zephyrproject.org/latest/build/kconfig/)
+
+5. Custom Boards
+
+### Task 1
+
+- Create a custom board using the "Copy/Rename" method.
+- Build the hello world sample for said board. 
+- Place the board directory in `<project_root>/boards/`.
+- Push and tag it as l5-task1.
+
+### Task 2
+
+- Create a custom board using the "From Scratch" method.
+- Build the hello world sample for said board.
+- It must also print a message ("Board Initialized") before entering the main entry point of the application.
+- Push anad tag it as l5-task2.
+
+[Supported Boards and Shields — Zephyr Project Documentation](https://docs.zephyrproject.org/latest/boards/index.html#boards)
+
+[Board Porting Guide — Zephyr Project Documentation](https://docs.zephyrproject.org/latest/hardware/porting/board_porting.html)
+
+[Devicetree — Zephyr Project Documentation](https://docs.zephyrproject.org/latest/build/dts/index.html)
