@@ -175,12 +175,14 @@ Add a configurable heartbeat LED to the blinky app from the demo.
 - Place the board directory in `<project_root>/boards/`.
 - Push and tag it as l5-task1.
 
+![task1](img/l5-task1.png)
+
 ### Task 2
 
 - Create a custom board using the "From Scratch" method.
 - Build the hello world sample for said board.
 - It must also print a message ("Board Initialized") before entering the main entry point of the application.
-- Push anad tag it as l5-task2.
+- Push and add tag it as l5-task2.
 
 [Supported Boards and Shields — Zephyr Project Documentation](https://docs.zephyrproject.org/latest/boards/index.html#boards)
 
