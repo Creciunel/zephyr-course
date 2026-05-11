@@ -189,3 +189,25 @@ Add a configurable heartbeat LED to the blinky app from the demo.
 [Board Porting Guide — Zephyr Project Documentation](https://docs.zephyrproject.org/latest/hardware/porting/board_porting.html)
 
 [Devicetree — Zephyr Project Documentation](https://docs.zephyrproject.org/latest/build/dts/index.html)
+
+6. Driver Development
+
+### Task 1
+
+- Create a sensor driver following the structure shown in this lecture.
+The sensor will be a simple on-board led.
+- The driver should implement `sensor_sample_fetch` and `sensor_channel_get`, turning on/off the led, respectively.
+- Commit and tag it l6-task1.
+
+### Task 2
+
+- Add a custom extension API function to your driver
+- Call it from `main.c`. 
+- This function will change a parameter of your choosing in the dynamic data struct.
+- Commit and tag it l6-task2.
+
+[Modules (External projects) — Zephyr Project Documentation](https://docs.zephyrproject.org/latest/develop/modules.html)
+
+[Devicetree bindings — Zephyr Project Documentation](https://docs.zephyrproject.org/latest/build/dts/bindings.html)
+
+[Device Driver Model — Zephyr Project Documentation](https://docs.zephyrproject.org/latest/kernel/drivers/index.html)
